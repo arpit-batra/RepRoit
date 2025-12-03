@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "910258606464",
+    "project_id": "rep-roit",
+    "storage_bucket": "rep-roit.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910258606464:android:912cf3bd20fd7909dbb165",
+        "android_client_info": {
+          "package_name": "com.example.rep_roit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG2O9E2i1b-6AbpkUB8JRY3eD1J4s3v-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
