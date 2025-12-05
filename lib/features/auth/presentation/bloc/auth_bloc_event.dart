@@ -14,3 +14,13 @@ class SignInSubmitted extends AuthBlocEvent {
   @override
   List<Object?> get props => [email, password];
 }
+
+class SignUpSubmitted extends AuthBlocEvent {
+  final String email;
+  final String password;
+
+  SignUpSubmitted({required this.email, required this.password});
+
+  @override
+  List<Object?> get props => [email, password];
+}

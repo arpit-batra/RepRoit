@@ -5,4 +5,9 @@ abstract class AuthRepository {
     required String email,
     required String password,
   });
+
+  Future<AuthUser> signUpWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
 }

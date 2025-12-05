@@ -30,7 +30,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Sign In")),
-      body: BlocConsumer(
+      body: BlocConsumer<AuthBloc, AuthBlocState>(
         listener: (context, state) {
           if (state is SuccessAuthBlocState) {
             context.go('/home');
@@ -62,10 +62,25 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: isLoading ? null : _,
+                  onPressed: isLoading ? null : _onSignInPressed,
                   child: isLoading
                       ? const CircularProgressIndicator()
                       : const Text('Sign-in'),
+                ),
+                Wrap(
+                  children: [
+                    Text("Don't have an account? "),
+                    GestureDetector(
+                      onTap: () => context.go('/sign-up'),
+                      child: Text(
+                        'Sign up',
+                        style: TextStyle(
+                          color: Colors.blue,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
