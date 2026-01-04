@@ -15,6 +15,8 @@ class SignInSubmitted extends AuthBlocEvent {
   List<Object?> get props => [email, password];
 }
 
+class GoogleSingInSubmitted extends AuthBlocEvent {}
+
 class SignUpSubmitted extends AuthBlocEvent {
   final String email;
   final String password;
@@ -24,3 +26,5 @@ class SignUpSubmitted extends AuthBlocEvent {
   @override
   List<Object?> get props => [email, password];
 }
+
+class SignOutSubmitted extends AuthBlocEvent {}

@@ -1,9 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:bloc_test/bloc_test.dart';
+import 'package:rep_roit/core/errors/failures.dart';
+import 'package:rep_roit/core/util/result.dart';
 
 import 'package:rep_roit/features/auth/domain/entities/auth_user.dart';
 import 'package:rep_roit/features/auth/domain/use_cases/sign_in_with_email_and_password_use_case.dart';
+import 'package:rep_roit/features/auth/domain/use_cases/sign_in_with_google_use_case.dart';
 import 'package:rep_roit/features/auth/domain/use_cases/sign_up_with_email_and_passwaord_use_case.dart';
 import 'package:rep_roit/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:rep_roit/features/auth/presentation/bloc/auth_bloc_event.dart';
@@ -15,15 +18,20 @@ class MockSignInWithEmailAndPasswordUseCase extends Mock
 class MockSignUpWithEmailAndPasswordUseCase extends Mock
     implements SignUpWithEmailAndPasswaordUseCase {}
 
+class MockSignInWithGoogleUseCase extends Mock
+    implements SignInWithGoogleUseCase {}
+
 void main() {
   late SignInWithEmailAndPasswordUseCase mockSignInWithEmailAndPasswordUseCase;
   late SignUpWithEmailAndPasswaordUseCase mockSignUpWithEmailAndPasswordUseCase;
+  late SignInWithGoogleUseCase mockSignInWIthGoogleUseCase;
 
   setUp(() {
     mockSignInWithEmailAndPasswordUseCase =
         MockSignInWithEmailAndPasswordUseCase();
     mockSignUpWithEmailAndPasswordUseCase =
         MockSignUpWithEmailAndPasswordUseCase();
+    mockSignInWIthGoogleUseCase = MockSignInWithGoogleUseCase();
   });
 
   const tEmail = 'arpitbatra98@gmail.com';
@@ -31,11 +39,8 @@ void main() {
   const tPassword = 'Testing@123';
   const tName = 'Arpit Batra';
   const tPhone = '2489542093';
-  const tAuthUser = AuthUser(
-    id: tId,
-    email: tEmail,
-    name: tName,
-    phone: tPhone,
+  const tAuthUser = Success(
+    AuthUser(id: tId, email: tEmail, name: tName, phone: tPhone),
   );
   blocTest(
     'emits [LoadingAuthBlocState,SuccessAuthBlocState] when sign in succeeds',
@@ -52,6 +57,7 @@ void main() {
             mockSignInWithEmailAndPasswordUseCase,
         signUpWithEmailAndPasswaordUseCase:
             mockSignUpWithEmailAndPasswordUseCase,
+        signInWithGoogleUseCase: mockSignInWIthGoogleUseCase,
       );
     },
     act: (bloc) =>
@@ -75,12 +81,13 @@ void main() {
           email: tEmail,
           password: tPassword,
         ),
-      ).thenThrow(Exception());
+      ).thenAnswer((inv) async => Error(AuthFailure("Sign In Failed")));
       return AuthBloc(
         signInWithEmailAndPasswordUseCase:
             mockSignInWithEmailAndPasswordUseCase,
         signUpWithEmailAndPasswaordUseCase:
             mockSignUpWithEmailAndPasswordUseCase,
+        signInWithGoogleUseCase: mockSignInWIthGoogleUseCase,
       );
     },
     act: (bloc) =>
@@ -97,7 +104,7 @@ void main() {
   );
 
   blocTest(
-    'Bloc emits [LoadingBlocAuthState,SuccessAuthBlocState]',
+    'Bloc emits [LoadingBlocAuthState,SuccessAuthBlocState] when sign up succeeds',
     build: () {
       when(
         () => mockSignUpWithEmailAndPasswordUseCase.call(
@@ -110,13 +117,14 @@ void main() {
             mockSignInWithEmailAndPasswordUseCase,
         signUpWithEmailAndPasswaordUseCase:
             mockSignUpWithEmailAndPasswordUseCase,
+        signInWithGoogleUseCase: mockSignInWIthGoogleUseCase,
       );
     },
     act: (bloc) =>
         bloc.add(SignUpSubmitted(email: tEmail, password: tPassword)),
     expect: () => [
       LoadingAuthBlocState(),
-      SuccessAuthBlocState(authUser: tAuthUser),
+      SuccessAuthBlocState(authUser: tAuthUser.value),
     ],
     verify: (bloc) => verify(
       () => mockSignUpWithEmailAndPasswordUseCase(

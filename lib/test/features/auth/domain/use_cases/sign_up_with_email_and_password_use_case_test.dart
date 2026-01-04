@@ -1,4 +1,5 @@
 import 'package:mocktail/mocktail.dart';
+import 'package:rep_roit/core/util/result.dart';
 import 'package:rep_roit/features/auth/domain/entities/auth_user.dart';
 import 'package:rep_roit/features/auth/domain/repository_interfaces/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,11 +15,8 @@ void main() {
   const String tId = '1';
   const String tName = 'Arpit';
   const String tPhone = '9996836502';
-  const AuthUser tAuthUser = AuthUser(
-    id: tId,
-    email: tEmail,
-    name: tName,
-    phone: tPhone,
+  const tAuthUser = Success(
+    AuthUser(id: tId, email: tEmail, name: tName, phone: tPhone),
   );
 
   setUp(() {

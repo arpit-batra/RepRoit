@@ -10,6 +10,8 @@ class InitialAuthBlocState extends AuthBlocState {}
 
 class LoadingAuthBlocState extends AuthBlocState {}
 
+class GoogleSignInLoadingAuthBlocState extends AuthBlocState {}
+
 class SuccessAuthBlocState extends AuthBlocState {
   final AuthUser authUser;
   SuccessAuthBlocState({required this.authUser});

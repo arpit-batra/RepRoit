@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '910258606464',
     projectId: 'rep-roit',
     storageBucket: 'rep-roit.firebasestorage.app',
+    iosClientId: '910258606464-b11slkj8ivtcf4e3movmasc46tqttl1i.apps.googleusercontent.com',
     iosBundleId: 'com.example.repRoit',
   );
+
 }

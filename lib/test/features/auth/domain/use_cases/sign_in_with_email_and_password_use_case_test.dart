@@ -1,4 +1,5 @@
 import 'package:mocktail/mocktail.dart';
+import 'package:rep_roit/core/util/result.dart';
 import 'package:rep_roit/features/auth/domain/entities/auth_user.dart';
 import 'package:rep_roit/features/auth/domain/repository_interfaces/auth_repository.dart';
 import 'package:rep_roit/features/auth/domain/use_cases/sign_in_with_email_and_password_use_case.dart';
@@ -17,18 +18,15 @@ void main() {
     );
   });
 
-  test('should return AuthUser when signin successds', () async {
+  test('should return AuthUser when signin succeeds', () async {
     const tEmail = 'arpitbatra98@gmail.com';
     const tPassword = 'Testing@123';
     const tName = 'Arpit Batra';
     const tPhone = '9996836502';
     const tId = '1';
 
-    final tAuthUser = AuthUser(
-      id: tId,
-      email: tEmail,
-      name: tName,
-      phone: tPhone,
+    final tAuthUser = Success(
+      AuthUser(id: tId, email: tEmail, name: tName, phone: tPhone),
     );
 
     when(
@@ -61,11 +59,8 @@ void main() {
     const tPhone = '9996836502';
     const tId = '1';
 
-    final tAuthUser = AuthUser(
-      id: tId,
-      email: tEmail,
-      name: tName,
-      phone: tPhone,
+    final tAuthUser = Success(
+      AuthUser(id: tId, email: tEmail, name: tName, phone: tPhone),
     );
 
     when(

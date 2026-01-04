@@ -5,7 +5,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
+      ),
       body: Center(child: Text('Home – workouts coming soon')),
     );
   }

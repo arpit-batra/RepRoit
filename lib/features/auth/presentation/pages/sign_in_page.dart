@@ -35,6 +35,10 @@ class _SignInPageState extends State<SignInPage> {
           if (state is SuccessAuthBlocState) {
             context.go('/home');
           } else if (state is FailureAuthBlocState) {
+            showAboutDialog(
+              context: context,
+              children: [Text(state.errorMessage)],
+            );
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
@@ -81,6 +85,14 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                   ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<AuthBloc>().add(GoogleSingInSubmitted());
+                  },
+                  child: state is GoogleSignInLoadingAuthBlocState
+                      ? CircularProgressIndicator()
+                      : Text("Sign in with Google"),
                 ),
               ],
             ),
