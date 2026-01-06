@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rep_roit/core/theme/app_theme.dart';
 import 'package:rep_roit/features/auth/domain/use_cases/sign_in_with_email_and_password_use_case.dart';
 import 'package:rep_roit/features/auth/domain/use_cases/sign_in_with_google_use_case.dart';
 import 'package:rep_roit/features/auth/domain/use_cases/sign_up_with_email_and_passwaord_use_case.dart';
@@ -33,6 +34,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: _router,
         debugShowCheckedModeBanner: false,
+        theme: AppTheme.light(),
+        darkTheme: AppTheme.dark(),
+        themeMode: ThemeMode.system,
       ),
     );
   }
